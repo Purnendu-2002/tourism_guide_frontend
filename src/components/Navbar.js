@@ -1,8 +1,38 @@
-import React from 'react'
-
+import React, { useContext } from 'react'
+import '../App.css';
+import { Avatar, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import Context from '../Context/Context';
 const Navbar = () => {
+  const user=JSON.parse(localStorage.getItem('userDetails'));
+  const navigate=useNavigate();
+  const handleLogout=async()=>{
+    localStorage.removeItem('userData');
+    localStorage.removeItem('userDetails');
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 200);
+    window.location.reload();
+  }
   return (
-    <div>This is Navbar</div>
+    <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"space-between", padding:"8px 20px", backgroundColor:"rgb(25,118,210)", position:"sticky", top:"0px", zIndex:"100"}}>
+      <div style={{color:"white", fontSize:"1.5rem", fontWeight:"bolder", cursor:"pointer"}}onClick={()=>navigate('/')}>Tourism Guide</div>
+      {(localStorage.getItem('userData'))?
+      <>
+      <div style={{display:"flex", flexDirection:'row'}}>
+        <div style={{marginRight:'15px'}}><Button variant="text" color='error' sx={{fontWeight:'bolder', color:'#ff6262'}} onClick={handleLogout}>Logout</Button></div>
+        <Avatar
+        src={user.Profile_Pic}
+        alt={user.Name}
+        onClick={()=>navigate('/profile',{state:{user: user}})}/>
+      </div>
+      </>
+      :
+      <>
+      </>}
+      
+
+    </div>
   )
 }
 

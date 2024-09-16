@@ -1,12 +1,18 @@
 import React from 'react'
-import Navbar from './Navbar'
+import PostContainer from './Post/PostContainer'
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate=useNavigate();
+
   return (
-    <>
-    <Navbar/>
-    <div>Home</div>
-    </>
+    <div>
+      <PostContainer/>
+      <div className='Home_button' onClick={()=>navigate('/upload')}>
+        <AddIcon sx={{height:"100px",width:"100px", color:'#1976d2'}}/>
+      </div>
+    </div>
   )
 }
 
